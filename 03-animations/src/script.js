@@ -14,8 +14,8 @@ scene.add(mesh);
 
 // Sizes
 const sizes = {
-  width: 800,
-  height: 600,
+  width: 700,
+  height: 500,
 };
 
 // Camera
@@ -28,4 +28,41 @@ const renderer = new THREE.WebGLRenderer({
   canvas: canvas,
 });
 renderer.setSize(sizes.width, sizes.height);
-renderer.render(scene, camera);
+// renderer.render(scene, camera);
+
+// JS Method
+// let time = Date.now();
+// const tick = () => {
+//   // console.log("tickong");
+//   const current = Date.now();
+//   const delta = current - time;
+//   time = current;
+
+//   // mesh.position.x += -0.01 ;
+//   mesh.rotation.y += 0.001 * delta;
+//   renderer.render(scene,camera);
+//   window.requestAnimationFrame(tick);
+  
+// }
+// tick();
+
+// Three inbult method
+
+const clock = new THREE.Clock();
+
+const tick = ()=>{
+  const elapsedTime = clock.getElapsedTime();
+  // mesh.rotation.y = Math.cos(elapsedTime);
+  // mesh.rotation.x = elapsedTime;
+  // mesh.rotation.z = elapsedTime;
+  // mesh.position.x = Math.cos(elapsedTime);
+  // mesh.position.y = Math.sin(elapsedTime);
+
+  camera.position.x = Math.sin(elapsedTime);
+  camera.position.y = Math.cos(elapsedTime);
+  camera.lookAt(mesh.position);
+  renderer.render(scene,camera);
+  window.requestAnimationFrame(tick)
+}
+tick();
+
