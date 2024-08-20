@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import gsap from 'gsap';
 
 // Canvas
 const canvas = document.querySelector("canvas.webgl");
@@ -58,11 +59,17 @@ const tick = ()=>{
   // mesh.position.x = Math.cos(elapsedTime);
   // mesh.position.y = Math.sin(elapsedTime);
 
-  camera.position.x = Math.sin(elapsedTime);
-  camera.position.y = Math.cos(elapsedTime);
-  camera.lookAt(mesh.position);
+  // camera.position.x = Math.sin(elapsedTime);
+  // camera.position.y = Math.cos(elapsedTime);
+  // camera.lookAt(mesh.position);
   renderer.render(scene,camera);
   window.requestAnimationFrame(tick)
 }
 tick();
+gsap.to(mesh.position,{
+  x:2,
+  y:2,
+  duration:5,
+  delay: 1,
 
+})
