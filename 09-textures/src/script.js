@@ -10,12 +10,64 @@ const canvas = document.querySelector("canvas.webgl");
 // Scene
 const scene = new THREE.Scene();
 
+//texture
+// const image = new Image();
+// const texture = new THREE.Texture(image);
+// image.addEventListener("load",()=>{
+//   texture.needsUpdate = true;
+// })
+// image.src = "../textures/door/color.jpg";
+
+const loadingManager = new THREE.LoadingManager();
+loadingManager.onError = () => {
+  console.log("error");
+}
+loadingManager.onLoad = () => {
+  console.log("load");
+}
+loadingManager.onProgress = () => {
+  console.log("progress");
+}
+
+const TextureLoader = new THREE.TextureLoader(loadingManager);
+const color = TextureLoader.load("../textures/door/color.jpg");
+color.colorSpace = THREE.SRGBColorSpace;
+// color.repeat.x = 2;
+// color.repeat.y = 3;
+
+// color.wrapS = THREE.RepeatWrapping;
+// color.wrapT = THREE.RepeatWrapping;
+
+// color.wrapS = THREE.MirroredRepeatWrapping;
+
+// color.offset.x = -0.5;
+
+// color.rotation = Math.PI / 4;
+
+//rotation from center
+// color.center.x = 0.5;
+// color.center.y = 0.5
+
+const minecraft = TextureLoader.load("../textures/minecraft.png")
+
+//increace the quility
+minecraft.magFilter = THREE.NearestFilter;
+minecraft.colorSpace = THREE.SRGBColorSpace;
+
 /**
  * Object
  */
 const geometry = new THREE.BoxGeometry(1, 1, 1);
-const material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+// const geometry = new THREE.SphereGeometry(1,32,32);
+// const geometry = new THREE.TorusGeometry(1,0.38,32,200);
+// const material = new THREE.MeshBasicMaterial({ color : "#ff0000" });
+// const material = new THREE.MeshBasicMaterial({ map:color });
+const material = new THREE.MeshBasicMaterial({ map: minecraft });
+// const material = new THREE.MeshBasicMaterial({ map: texture});
 const mesh = new THREE.Mesh(geometry, material);
+//uv attribute
+console.log(geometry.attributes.uv);
+
 scene.add(mesh);
 
 /**
